@@ -14,6 +14,15 @@ Quora - python
    line-height: normal; /* for non-ie */
    line-height: 22px\9; /* for ie */
 
+2012.02.29
+----------
+
+   1. sublime config rope
+   call "Rope:New Project"
+   edit /.ropeproject/config.py
+   prefs.add('python_path', 'D:/PortablePython_1.1_py2.6.1/App/Lib/site-packages/')
+   
+
 2012.02.23
 -----------
   

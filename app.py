@@ -15,7 +15,7 @@ import filter
 import session
 from mongoengine import *
 
-def markdown_tag(str):
+def markdown_tag(str):    
     return markdown.markdown(str)
 
 define("port", default=8888, help="run on the given port", type=int)
