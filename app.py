@@ -41,7 +41,8 @@ class Application(tornado.web.Application):
             (r"/([^/]+)", ProfileHandler),
         ]
         settings = dict(
-            app_name=u"我知",
+            app_name=u"你我知",
+            app_descript = u"xxx,sos. 你知道的",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             xsrf_cookies=True,
