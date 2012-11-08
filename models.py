@@ -14,29 +14,29 @@ class User(Document):
 class Comment(EmbeddedDocument):
     id = StringField(required=True)
     body = StringField(required=True,min_length=4, max_length=2000)
-    user = ReferenceField(User)
+    user = ReferenceField(User, dbref=False)
     created_at = DateTimeField(default=datetime.datetime.now)
 
 class Vote(EmbeddedDocument):
-    user = ReferenceField(User,required=True)
+    user = ReferenceField(User, required=True, dbref=False)
     up = BooleanField(required=True,default=True)
     
 class Ask(Document):
     title = StringField(required=True,min_length=5,max_length=255)
     body = StringField()
     summary = StringField()
-    user = ReferenceField(User)
+    user = ReferenceField(User, dbref=False)
     tags = ListField(StringField(max_length=30))
     comments = ListField(EmbeddedDocumentField(Comment))
     answers_count = IntField(required=True,default=0)
-    flagged_users = ListField(ReferenceField(User))
+    flagged_users = ListField(ReferenceField(User, dbref=False))
     created_at = DateTimeField(default=datetime.datetime.now)
     replied_at = DateTimeField(default=datetime.datetime.now)
 
 class Answer(Document):
-    ask = ReferenceField(Ask)
+    ask = ReferenceField(Ask, dbref=False)
     body = StringField()
-    user = ReferenceField(User)
+    user = ReferenceField(User, dbref=False)
     comments = ListField(EmbeddedDocumentField(Comment))
     vote = IntField(required=True,default=0)
     votes = ListField(EmbeddedDocumentField(Vote))

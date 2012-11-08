@@ -13,13 +13,13 @@ from jinja2 import Template, Environment, FileSystemLoader
 from handlers import *
 import filter
 import session
-from mongoengine import *
+import mongoengine as me
 
 def markdown_tag(str):    
     return markdown.markdown(str)
 
 define("port", default=8888, help="run on the given port", type=int)
-define("mongo_host", default="127.0.0.1:3306", help="database host")
+define("mongo_host", default="127.0.0.1:27017", help="database host")
 define("mongo_database", default="quora", help="database name")
 
 class Application(tornado.web.Application):
@@ -41,8 +41,8 @@ class Application(tornado.web.Application):
             (r"/([^/]+)", ProfileHandler),
         ]
         settings = dict(
-            app_name=u"你我知",
-            app_descript = u"xxx,sos. 你知道的",
+            app_name=u"ReQuora",
+            app_descript = u"<a href=\"https://github.com/ShiZhan\">ShiZhan</a> 2012, <a href=\"https://github.com/ShiZhan/quora-python\">code</a> forked from <a href=\"https://github.com/renxing/quora-python\">renxing/quora-python</a>, thanks to <a href=\"https://github.com/renxing\">renxing</a>.",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             xsrf_cookies=True,
@@ -55,7 +55,7 @@ class Application(tornado.web.Application):
         tornado.web.Application.__init__(self, handlers, **settings)
 
         # Connection MongoDB
-        connect(options.mongo_database)
+        me.connect(options.mongo_database)
 
 def main():
     tornado.options.parse_command_line()
